@@ -1,0 +1,5 @@
+172.27.0.6 - - [17/Dec/2018:13:39:47 +0000] "GET / HTTP/1.0" 200 82996 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"
+172.27.0.6 - - [17/Dec/2018:13:39:47 +0000] "GET /favicon.ico HTTP/1.0" 404 209 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"
+172.27.0.6 - - [17/Dec/2018:13:50:50 +0000] "GET / HTTP/1.0" 200 83045 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"
+172.27.0.6 - - [17/Dec/2018:14:05:12 +0000] "GET / HTTP/1.0" 200 83045 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"
+172.27.0.7 - - [18/Dec/2018:07:03:58 +0000] "GET /favicon.ico HTTP/1.0" 404 209 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101 Firefox/60.0"

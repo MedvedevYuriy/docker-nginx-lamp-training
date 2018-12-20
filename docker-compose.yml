@@ -1,0 +1,79 @@
+version: '3'
+
+services:
+  apache:
+    image: httpd:2.4
+    volumes:
+      - ./src:/var/www/html
+      - ./httpd/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ./httpd/httpd-site1.conf:/usr/local/apache2/conf/extra/httpd-site1.conf
+      - ./httpd/httpd-site2.conf:/usr/local/apache2/conf/extra/httpd-site2.conf
+    links:
+      - mariadb:db  
+    depends_on:
+      - php
+
+  nginx:
+#    image: nginx:1.13
+    build:
+      ./nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/sites-enabled:/etc/nginx/conf.d
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - apache
+
+  php:
+#    image: php:7.2-fpm
+    build:
+      ./php
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - mariadb
+
+  mariadb: 
+    image: mariadb:10.3
+    restart: always
+    volumes:
+      - ./mariadb:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: qwerty
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+#  wordpress:
+#    depends_on:
+#      - mariadb 
+#    image: wordpress:latest
+#    ports:
+#      - 8000:80
+#   restart: always
+#    environment:
+#      WORDPRESS_DB_HOST: mariadb:3306
+#      WORDPRESS_DB_USER: wordpress
+#      WORDPRESS_DB_PASSWORD: wordpress
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    links: 
+      - mariadb
+    ports:
+      - 8765:80
+    environment:
+      MYSQL_ROOT_PASSWORD: qwerty
+      PMA_HOST: mariadb
+      PMA_ABSOLUTE_URI: http://192.168.1.234/pma/ 
+    depends_on:
+      - mariadb
+
+volumes:
+  db_data: {}
